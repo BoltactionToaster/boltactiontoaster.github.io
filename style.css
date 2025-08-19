@@ -40,7 +40,7 @@ p {
     height: auto;
     background-color: aquamarine;
 }
-@media (max-width: 768px) {
+@media screen and (orientation: portrait) {
     .image-text-container {
         flex-direction: column;
     }
