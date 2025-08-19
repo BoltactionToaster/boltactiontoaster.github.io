@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div>
+            <h1 class="title">Flexible Finite State Machine</h1>
+            <h2 class="subtitle">A highly flexible FSM system that allows for high levels of code reuse</h2>
+            <p>This project is the culmination of several game jam systems and inspiration from a few well known finite state machine solutions. As the base system for a finite state machine is extremely simple to build from scratch, this makes it practically ideal for game jams, outside of very specific circumstances. From there, I learned from several mistakes in game jam versions and got some inspiration for how Corgi Engine makes their own finite state machine system, along with lesser inspiration from other commercial systems such as FlowCanvas. The core systems technically use nothing Unity specific, but all actions, transitions, and the finite state machine controller itself are MonoBehaviors for Unity integration.</p>
+
+            <p>To begin with, there is a centralized controller of the states, usually just called FiniteStateMachine. It goes without saying that this system controls what state a unit is actively in and handles transitions towards other states. However, it does not handle any of the logic of the state or the conditions.</p>
+
+            <p>In a typical YouTube tutorial, finite state machines are usually handled through something along the lines of a switch statement with enums. But this has a big downside of inflexibility. It makes creating new behaviors more difficult by extending an increasingly long script and needing to add transitions all throughout the script. Additionally, it disallows for code reuse, as it makes reusing parts of states much more difficult, especially between distinct agents with separate behavior. They can be put into their own methods, but the struggle of reuse between AI agents remains without substantial effort put in.</p>
+            
+            <p>Looking into better, more flexible systems brings forth the idea of breaking a state up into a few components. These components are a list of Actions and a list of Transitions. Actions are composed of the actual logic of the state, the <i>actions</i> that the FSM will take in a given frame. Next, the transitions are composed of several components: a condition, a true transition, and a false transition. Both the true and false transitions may or may not exist, but the condition must always exist. </p>
+
+            <p>FINITE STATE MACHINE CORE HERE</p>
+
+            <div class="image-text-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1920px-Google_2015_logo.svg.png" alt="Description of image">
+                <div class="text">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut justo ultricies, tincidunt sapien eleifend, rhoncus orci. Mauris molestie felis tortor, in laoreet dui congue ut. Nam lacus nunc, tristique quis faucibus eleifend, pellentesque vel ipsum. Suspendisse felis ante, varius ac eros at, dapibus mattis dui. Cras tincidunt elit lacus, a molestie tortor sollicitudin at. Donec bibendum pharetra mi ac gravida. Etiam elementum magna non neque porttitor pretium. Nulla convallis lobortis eros, at dictum nunc accumsan eget. Quisque tristique vestibulum libero. Vivamus blandit, lectus at pellentesque sodales, dui leo semper est, id dictum nisl est eget orci. Nam ipsum ligula, congue vel eros rhoncus, volutpat congue eros. Vestibulum quis magna mattis, hendrerit lorem in, congue neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta lectus id elit iaculis, id condimentum diam tempus. Phasellus hendrerit, tellus sed sollicitudin gravida, ex orci semper orci, sit amet ultrices lacus arcu vel nulla. </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
