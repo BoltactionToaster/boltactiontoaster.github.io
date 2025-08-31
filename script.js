@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nav = document.querySelector(".topnav");
     let lastScrollY = window.scrollY;
     let currentY = 0;
-    let baseHeight = -54;
+    let baseHeight = -nav.clientHeight;
 
     window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
         const portrait = window.matchMedia("(orientation: portrait)").matches;
@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
         currentY = 0;
         lastScrollY = window.scrollY;
         document.querySelector(".topnav").style.setProperty("top", currentY + "px");
+        console.log(nav.clientHeight);
+        baseHeight = -nav.clientHeight;
     });
 
     window.addEventListener("scroll", () => {
