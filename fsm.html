@@ -72,7 +72,7 @@
 
             <p>As for how state transitions happen, we first need to verify if there is a transition happening in this state and get the state it transitions to. If there is one, we change to the new state. Otherwise, we continue as we were. The simplicity of this core script is a boon for the project, as it means specifying and extending it for any particular needs is extremely easy.</p>
 
-            <pre class="code"><code class="language-cs">protected virtual protected bool TryToTransition()
+            <pre class="code"><code class="language-cs">protected virtual bool TryToTransition()
 {
     var state = states[currentState].TryGetNewStateByTransitions();
     if (string.IsNullOrEmpty(state))
