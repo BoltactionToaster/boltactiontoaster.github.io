@@ -53,6 +53,14 @@ body
     color: #f0f6f0;
 }
 
+.dark-mode a {
+    color: lightskyblue
+}
+
+.dark-mode a:visited {
+    color: #6d4b8d; 
+}
+
 .dark-mode .topnav {
     background-color: #141414;
     color:#f0f6f0;
@@ -72,6 +80,10 @@ body
 
 .dark-mode .topnav a.icon:hover {
     background-color: #222323;
+}
+
+.dark-mode .project-item {
+    color: #f0f6f0;
 }
 
 .dark-mode .project-item:hover {
