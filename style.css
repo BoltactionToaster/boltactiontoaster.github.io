@@ -1,7 +1,7 @@
 
 body
 {
-    font-size: 20px;
+    font-size: 1.25rem;
     background-color: #f0f6f0;
     color: #222323;
     margin: 0;
@@ -105,6 +105,10 @@ body
     color: #f0f6f0;
 }
 
+.dark-mode .project-item:visited{
+    color: #f0f6f0;
+}
+
 .dark-mode .project-item:hover {
     background-color: #141414;
 }
@@ -146,6 +150,7 @@ body
     .topnav {
         top: var(--topnav-height);
         transition: transform 0.2s;
+        min-height: 10%;
     }
 
     .topnav .desktop-item {
