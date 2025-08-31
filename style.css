@@ -24,6 +24,12 @@ body
     margin: auto;
 }
 
+@media screen and (orientation: portrait) {
+    .projects-container {
+        flex-direction: column;
+    }
+}
+
 .project-item {
     flex-basis: 49%;
     max-width: 100%;
@@ -36,7 +42,10 @@ body
 }
 
 .project-item img {
-    max-width: 400px;
+    display: block;
+    margin: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .project-title {
