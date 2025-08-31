@@ -1,0 +1,25 @@
+.spacer {
+    flex: 1 0 auto;
+}
+
+.bottom-bar {
+    flex-shrink: 0;
+    height: 3.375em;
+    font-size: 1em;
+    margin:auto;
+    margin-top: 40px;
+    width: 100%;
+    background-color: #222323;
+    color: #f0f6f0;
+    align-content: center;
+    text-align: center;
+}
+
+.back-to-top:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.dark-mode .bottom-bar {
+    background-color: #141414;
+}

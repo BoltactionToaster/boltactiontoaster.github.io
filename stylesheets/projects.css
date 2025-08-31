@@ -1,0 +1,55 @@
+.projects-container {
+    max-width: 50%;
+    column-gap: 8px;
+    row-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+
+    margin: auto;
+}
+
+@media screen and (orientation: portrait) {
+    .projects-container {
+        flex-direction: column;
+        max-width: 100%;
+    }
+}
+
+.project-item {
+    flex-basis: 49%;
+    max-width: 100%;
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.project-item:hover {
+    background-color: #d8ddd8;
+}
+
+.project-item img {
+    margin: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.project-title {
+    text-align: center;
+}
+
+.project-subtitle {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.dark-mode .project-item {
+    color: #f0f6f0;
+}
+
+.dark-mode .project-item:visited{
+    color: #f0f6f0;
+}
+
+.dark-mode .project-item:hover {
+    background-color: #141414;
+}

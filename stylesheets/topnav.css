@@ -1,0 +1,107 @@
+.topnav {
+    position: sticky;
+    display: flex;
+    justify-content:right;
+    align-content: center;
+    top: 0;
+    width: 100%;
+    padding: 0.4em;
+    padding-left: 0;
+    font-size: 1em;
+    background-color: #222323;
+    color: #f0f6f0;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+.name-title {
+    margin-right: auto;
+    padding: 14px 16px;
+}
+
+.day-night-switch
+{
+    background-color: #222323;
+    font-size: inherit;
+    border: none;
+    background: none;
+}
+
+.desktop-item {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+@media screen and (orientation: portrait) {
+    .topnav {
+        top: var(--topnav-height);
+        transition: transform 0.2s;
+        font-size: 2em;
+    }
+
+    .topnav .desktop-item {
+        display: none;
+    }
+}
+
+.topnav .mobile-items {
+    display: none;
+    order: 4;
+    flex-direction: column;
+    width: 100%;
+}
+
+.topnav .mobile-item {
+    display: block;
+    text-align: right;
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.topnav .mobile-items.active {
+    display: block;
+}
+
+.topnav a.icon {
+    background: #222323;
+    color:#f0f6f0;
+    order: 3;
+    display: block;
+}
+
+@media screen and (orientation: landscape) {
+    .topnav a.icon {
+        display: none;
+    }
+}
+
+.topnav a {
+    text-align: center;
+    padding: 14px 16px;
+}
+
+.topnav a:hover {
+    background-color: #0d1117;
+}
+
+
+.dark-mode .topnav {
+    background-color: #141414;
+    color:#f0f6f0;
+}
+
+.dark-mode .topnav a {
+    color: #f0f6f0;
+}
+
+.dark-mode .topnav a:hover {
+    background-color: #222323;
+}
+
+.dark-mode .topnav a.icon {
+    background-color: #141414;
+}
+
+.dark-mode .topnav a.icon:hover {
+    background-color: #222323;
+}
