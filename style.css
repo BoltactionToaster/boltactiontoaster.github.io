@@ -74,6 +74,10 @@ body
     background-color: white;
 }
 
+.dark-mode .topnav a {
+    color: #f0f6f0;
+}
+
 .dark-mode .topnav a.icon {
     background-color: #141414;
 }
@@ -87,6 +91,10 @@ body
 }
 
 .dark-mode .project-item:hover {
+    background-color: #141414;
+}
+
+.dark-mode .bottom-bar {
     background-color: #141414;
 }
 
