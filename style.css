@@ -223,7 +223,7 @@ p {
 .image-centered {
     margin: 0 auto;
     display: block;
-    max-width: 800px;
+    max-width: 100%;
 }
 
 .bottom-bar {
