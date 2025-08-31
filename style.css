@@ -1,3 +1,4 @@
+
 body
 {
     font-size: 20px;
@@ -11,11 +12,15 @@ body
     font-variation-settings: 
         "wdth" 100;
 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
     --topnav-height: -54;
 }
 
 .projects-container {
-    max-width: 808px;
+    max-width: 42.1%;
     column-gap: 8px;
     row-gap: 20px;
     display: flex;
@@ -27,6 +32,7 @@ body
 @media screen and (orientation: portrait) {
     .projects-container {
         flex-direction: column;
+        max-width: 100%;
     }
 }
 
@@ -255,7 +261,12 @@ p {
     max-width: 100%;
 }
 
+.spacer {
+    flex: 1 0 auto;
+}
+
 .bottom-bar {
+    flex-shrink: 0;
     height: 60px;
     margin:0px;
     margin-top: 40px;
