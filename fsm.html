@@ -102,7 +102,7 @@ protected virtual void ChangeToState(string state)
             <div class="image-text-container">
                 <img src="images/fsm-conditional-original.jpg" alt="Image of a finite state machine condition component in Unity">
                     <div class="text">
-                    <p>Transitions use a IStateCondition interface and two strings for the state names. These state names utilize a tool made with Odin Inspector to use a dropdown list to ensure that only states that exist in the object or its parent can be selected. Other than that, IStateCondition shares much of the same design of IStateAction: Initialize(), OnStateEnter(), OnStateExit(), and the only change is CheckCondition() instead of Execute(). Of course, CheckCondition() returns a boolean. The exmaple images of a conditional checks for jump input (which itself is a bool) to return whether the input is true or not.</p>
+                    <p>Transitions use a IStateCondition interface and two strings for the state names. These state names utilize a tool made with Odin Inspector to use a dropdown list to ensure that only states that exist in the object or its parent can be selected. Other than that, IStateCondition shares much of the same design of IStateAction: Initialize(), OnStateEnter(), OnStateExit(), and the only change is CheckCondition() instead of Execute(). Of course, CheckCondition() returns a boolean. The example images of a conditional checks for jump input (which itself is a bool) to return whether the input is true or not.</p>
                 </div>
             </div>
 
