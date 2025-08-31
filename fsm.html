@@ -2,29 +2,193 @@
 <html lang="en-US">
     <head>
         <meta charset="UTF-8"/>
+
+        <meta name="author" content="Jason Reppeto"/>
+        <meta name="description" content="Jason Reppeto's Portfolio"/>
+
+        <meta property="og:title" content="Jason Reppeto's Portfolio"/>
+        <meta property="og:url" content="jasonreppeto.com"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:description" content="My own personal portfolio of different projects I've worked on."/>
+
+        <title>Jason Reppeto's Portfolio</title>
+
         <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Special+Gothic:wght@400..700&display=swap" rel="stylesheet">
+
+        <link id="codeTheme" rel="stylesheet" href="github-dark.css">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
+<script>hljs.highlightAll();</script>
 
     <body>
-        <div>
+        <div class="topnav">
+            <div class="name-title">Jason Reppeto</div>
+            <button id="switch" class="day-night-switch" onclick="toggleTheme()">☀️</button>
+
+            <a class="desktop-item" href="./index.html">Home</a>
+            <a class="desktop-item" href="./index.html#projects">Projects</a>
+            <a class="desktop-item" href="./index.html#about">About</a>
+            <a class="desktop-item" href="./index.html#contact">Contact</a>
+
+            <a class="icon" onclick="toggleMobileNav()">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <div id="mobile-items" class="mobile-items">
+                <a class="mobile-item" href="./index.html">Home</a>
+                <a class="mobile-item" href="./index.html#projects">Projects</a>
+                <a class="mobile-item" href="./index.html#about">About</a>
+                <a class="mobile-item" href="./index.html#contacts">Contact</a>
+            </div>
+        </div>
+        <div class="articleContent">
             <h1 class="title">Flexible Finite State Machine</h1>
             <h2 class="subtitle">A highly flexible FSM system that allows for high levels of code reuse</h2>
             <p>This project is the culmination of several game jam systems and inspiration from a few well known finite state machine solutions. As the base system for a finite state machine is extremely simple to build from scratch, this makes it practically ideal for game jams, outside of very specific circumstances. From there, I learned from several mistakes in game jam versions and got some inspiration for how Corgi Engine makes their own finite state machine system, along with lesser inspiration from other commercial systems such as FlowCanvas. The core systems technically use nothing Unity specific, but all actions, transitions, and the finite state machine controller itself are MonoBehaviors for Unity integration.</p>
 
-            <p>To begin with, there is a centralized controller of the states, usually just called FiniteStateMachine. It goes without saying that this system controls what state a unit is actively in and handles transitions towards other states. However, it does not handle any of the logic of the state or the conditions.</p>
-
-            <p>In a typical YouTube tutorial, finite state machines are usually handled through something along the lines of a switch statement with enums. But this has a big downside of inflexibility. It makes creating new behaviors more difficult by extending an increasingly long script and needing to add transitions all throughout the script. Additionally, it disallows for code reuse, as it makes reusing parts of states much more difficult, especially between distinct agents with separate behavior. They can be put into their own methods, but the struggle of reuse between AI agents remains without substantial effort put in.</p>
+            <p>In a typical YouTube tutorial, finite state machines are usually handled through something along the lines of a switch statement with enums or tightly coupled state logic in several scripts. But both of these have the big downside of inflexibility. It makes creating new behaviors more difficult by extending an increasingly long script and needing to add transitions all throughout the script. Want to add a new state that most states can transition to? Well, now you need to edit the code for most of your states. This can be quite messy to place in the right spot as states get more and more complex. Additionally, it disallows for code reuse, as it makes reusing smaller parts of states much more difficult, especially between distinct agents with separate behavior. They can be put into their own methods and classes, but the struggle of reuse between AI agents remains without substantial effort put in.</p>
             
             <p>Looking into better, more flexible systems brings forth the idea of breaking a state up into a few components. These components are a list of Actions and a list of Transitions. Actions are composed of the actual logic of the state, the <i>actions</i> that the FSM will take in a given frame. Next, the transitions are composed of several components: a condition, a true transition, and a false transition. Both the true and false transitions may or may not exist, but the condition must always exist. </p>
 
-            <p>FINITE STATE MACHINE CORE HERE</p>
+            <img class="image-centered" src="images/fsm-article-original.jpg", alt="Image of the finite state machine Unity component">
+
+            <p>To begin with, there is a centralized controller of the states, usually just called FiniteStateMachine in my projects. It goes without saying that this system controls what state a unit is actively in and handles transitions towards other states. However, it does not handle any of the logic of the state or the conditions.</p>
+
+            <p>The FiniteStateMachine stores of dictionary of &lt;string, State&gt; where State holds a list of IStateActions and a list of Transitions. All we meed to do for a state is check for transitions and if there are not any, we runs the actions. It needs to return if a transition is made, as there the state must start fresh.</p>
+
+            <pre class="code"><code class="language-cs">protected virtual void Update()
+{
+    if (TryToTransition())
+        return;
+    UpdateState();
+}</code></pre>
+
+            <p>As for how state transitions happen, we first need to verify if there is a transition happening in this state and get the state it transitions to. If there is one, we change to the new state. Otherwise, we continue as we were. The simplicity of this core script is a boon for the project, as it means specifying and extending it for any particular needs is extremely easy.</p>
+
+            <pre class="code"><code class="language-cs">protected virtual protected bool TryToTransition()
+{
+    var state = states[currentState].TryGetNewStateByTransitions();
+    if (string.IsNullOrEmpty(state))
+        return false;
+
+    ChangeToState(state);
+    return true;
+}
+
+protected virtual void ChangeToState(string state)
+{
+    states[currentState].OnExitState();
+    states[state].OnEnterState();
+    currentState = state;
+}
+</code></pre>
 
             <div class="image-text-container">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1920px-Google_2015_logo.svg.png" alt="Description of image">
                 <div class="text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut justo ultricies, tincidunt sapien eleifend, rhoncus orci. Mauris molestie felis tortor, in laoreet dui congue ut. Nam lacus nunc, tristique quis faucibus eleifend, pellentesque vel ipsum. Suspendisse felis ante, varius ac eros at, dapibus mattis dui. Cras tincidunt elit lacus, a molestie tortor sollicitudin at. Donec bibendum pharetra mi ac gravida. Etiam elementum magna non neque porttitor pretium. Nulla convallis lobortis eros, at dictum nunc accumsan eget. Quisque tristique vestibulum libero. Vivamus blandit, lectus at pellentesque sodales, dui leo semper est, id dictum nisl est eget orci. Nam ipsum ligula, congue vel eros rhoncus, volutpat congue eros. Vestibulum quis magna mattis, hendrerit lorem in, congue neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta lectus id elit iaculis, id condimentum diam tempus. Phasellus hendrerit, tellus sed sollicitudin gravida, ex orci semper orci, sit amet ultrices lacus arcu vel nulla. </p>
+                    <p>Actions use an interface known as IStateAction, which contains the methods for Initialize(), OnStateEnter(), Execute(), and OnStateExit(). These all, of course, activate in the respective section of the finite state machine. Actions are meant to change the state of the game. That is, they allow the state machine to move, attack, defend, or any other action they may need to take. Here is an example where it applies gravity to the character's velocity.</p>
+                </div>
+                <img src="images/fsm-action-original.jpg" alt="Image of a finite state machine action component in Unity.">
+            </div>
+
+            <p>By making the action use an interface, it allows for the system to be fairly software agnostic, allowing it to conceivably be used in other engines like Godot with changes to only the main controller class. Although for the purpose of Unity integration, actions typically inherit from MonoBehaviour or ScriptableObject. This allows for the actions to elegantly have parameters show in the editor without any additional effort. </p>
+
+            <div class="image-text-container">
+                <img src="images/fsm-conditional-original.jpg" alt="Image of a finite state machine condition component in Unity">
+                    <div class="text">
+                    <p>Transitions use a IStateCondition interface and two strings for the state names. These state names utilize a tool made with Odin Inspector to use a dropdown list to ensure that only states that exist in the object or its parent can be selected. Other than that, IStateCondition shares much of the same design of IStateAction: Initialize(), OnStateEnter(), OnStateExit(), and the only change is CheckCondition() instead of Execute(). Of course, CheckCondition() returns a boolean. The exmaple images of a conditional checks for jump input (which itself is a bool) to return whether the input is true or not.</p>
                 </div>
             </div>
+
+            <p>Because of the design being so system agnostic, it allows for an easy creation of a variety of "compound conditions." These compound conditions reference other IStateConditions This means it is a generic way to check if the target is within range <i>and</i> visible before changing to an attack state, as one small example. These could be checking if one of several conditions are true or if any of them are true, similar to behavior tree selectors and sequences.</p>
+
+            <p>This same idea can be applied to actions to allow for a kind of pseudo Hierarchical State Machine system, although it is not created for it. However, when this system is paired with my <a href="./dbs.html">Data Binding System</a> it does allow for Parallel State Machines that share data with one another but do not ever directly interact. </p>
+
+            <p>Overall, this system allows for high levels of flexibility and code reuse by breaking up all states into a series of several smaller actions that run in tandem. It is perfect for games that do not need a more complex system like behavior trees or utility AI. </p>
+
+            <p>To see the power of this system in action, please visit my <a href="./wrcc.html">Wall Rider Character Controller</a> page, filled with information on how it works in practice with a video of the code in action.</p>
         </div>
+
+        <div class="bottom-bar">
+            <div class="back-to-top" onclick="scrollToTop()">
+                [Back to the Top]
+            </div>
+        </div>
+
+        <script>
+            // Wait for DOM to be fully loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                const nav = document.querySelector(".topnav");
+                let lastScrollY = window.scrollY;
+                let currentY = 0;
+                let baseHeight = -54;
+
+                window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
+                    const portrait = window.matchMedia("(orientation: portrait)").matches;
+                    
+                    currentY = 0;
+                    lastScrollY = window.scrollY;
+                    document.querySelector(".topnav").style.setProperty("top", currentY + "px");
+                });
+
+                window.addEventListener("scroll", () => {
+                    const portrait = window.matchMedia("(orientation: portrait)").matches;
+                    
+                    if(portrait === false)
+                        return;
+
+                    if(document.getElementById("mobile-items").classList.contains("active")) {
+                        currentY = 0;
+                        lastScrollY = window.scrollY;
+                        return;
+                    }
+
+                    currentY += (lastScrollY - window.scrollY) * 0.5;
+
+                    if (currentY < baseHeight)
+                        currentY = baseHeight;
+                    else if (currentY > 0)
+                        currentY = 0;
+                    
+
+                    lastScrollY = window.scrollY;
+
+                    document.querySelector(".topnav").style.setProperty("top", currentY + "px");
+                });
+            });
+            
+            function toggleTheme() {
+                document.body.classList.toggle('dark-mode');
+                
+                let theme = document.getElementById('codeTheme');
+
+                if(theme.getAttribute('href') == 'github-dark.css') {
+                    theme.setAttribute('href', 'github.css');
+                    document.getElementById('switch').innerHTML = '🌙';
+                }
+                else {
+                    theme.setAttribute('href', 'github-dark.css');
+                    document.getElementById('switch').innerHTML = '☀️';
+                }
+
+            }
+
+            function toggleMobileNav() {
+                document.getElementById("mobile-items").classList.toggle("active");
+                document.querySelector(".topnav").style.setProperty("top", "0px");
+            }
+
+            function scrollToTop() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        </script>
     </body>
+
 </html>

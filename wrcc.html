@@ -49,45 +49,64 @@
             </div>
         </div>
         <div class="articleContent">
-            <h1 class="title" id="projects">Projects</h1>
-            <div class="projects-container">
-              <a class="project-item" href="./fsm.html">
-                <img src="./images/fsm-cover-original.jpg" alt="Description of image">
-                <div class="project-title">Flexible Finite State Machine</div>
-                <div class="project-subtitle">A flexible FSM system with a system agnostic core and integrations to work with Unity.</div>
-              </a>
-              <a class="project-item" href="dbs.html">
-                <img src="./images/dbs-cover-original.jpg" alt="Description of image">
-                <div class="project-title">Data Binding System</div>
-                <div class="project-subtitle">A powerful system to bind data between different scripts in Unity with type validation.</div>
-              </a>
-              <a class="project-item" href="wrcc.html">
-                <img src="./images/wrcc-cover-original.jpg" alt="Description of image">
-                <div class="project-title">Titanfall Inspired Character Controller</div>
-                <div class="project-subtitle">A character controller inspired by the Titanfall character controller with ledge grabbing, wall riding, and directional dashing.</div>
-              </a>
-              <!--<div class="project-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1920px-Google_2015_logo.svg.png" alt="Description of image">
-                <div class="project-title">Graph Based Behavior Tree</div>
-                <div class="project-subtitle">A behavior tree made using the same graph technology Unity's Shadergraph uses.</div>
-              </div>-->
-            </div>
-            <br>
-            <!--<h1 class="title" id="classes">University Electives Taken</h1>
+            <h1 class="title">Titanfall Inspired Character Controller</h1>
+            <h2 class="subtitle">A character controller with lots of fluid movement options.</h2>
+            <p>This character controller was built to be similar to Titanfall's character controller. Additionally, it takes Lucio from Overwatch's wallride mechanics and combined them into a full FPS character controller. This system uses some of the systems I have built previously, namely my <a href="./fsm.html">Finite State Machine</a> and <a href="dbs.html">Data Binding System</a>.</p>
 
-            <br>-->
-            <h1 class="title" id="about">About</h1>
-            <p class="centered-text">I am a passionate software engineer and a graduate of the University of Central Florida's computer science program. I started programming in high school to learn to make games. From there, I had decided that I really enjoyed programming, though much of what I learned was game development focused until university. However, once in university, I was exposed to many different fields of software development. From web development to systems software, operating systems, and even machine learning. I learned so much about the inner workings of many underlying systems the modern world runs off of and takes for granted. I'm ready to continue learning what I need to be successful in my career and reach my goals.</p>
-            <br>
-            <h1 class="title" id="contact">Contact</h1>
-            <h2 class="subtitle">jasonreppeto@gmail.com</h2>
+            <img class="image-centered" src="./images/State Machine Diagram With Transition Conditionals.webp" alt="Description of image">
+
+            <p>To begin with, it uses a single state machine to organize all the states, with the original plan of states being shown in the adjacent image. This is potentially not ideal, depending on how complex the character must be. But it is an excellent showcase for how powerful the FSM system I built is when the system is typically used for enemy AI. There ended up being a few more states than in my original plan. For example, it was easier to separate wall riding into left and right wall riding than it was to keep it together as a single wall riding state.</p>
+
+            <div class="image-text-container">
+                <div class="text">
+                    <p>The first state is the grounded state. The grounded state allows for walking, ground detection, as well as a variety of inputs. This is a very malleable state, where movement could be changed to suit the needs of the character controller. In this case in particular, I use some simple FPS movement.</p>
+                </div>
+                <img src="./images/wrcc-ground-original.jpg" alt="Description of image">
+            </div>
+
+            <div class="image-text-container">
+                <img src="./images/wrcc-air-original.jpg" alt="Description of image">
+                <div class="text">
+                    <p>The aerial state is similar to the grounded state, but with the addition of gravity and altered movement dynamics. It would be trivial to add something like bunny hopping in a similar way to how DUSK achieves the same effect.</p>
+                </div>
+            </div>
+
+            <div class="image-text-container">
+                <div class="text">
+                    <p>The dash state is very simple, all it needs is to reset the velocity and to go into the direction of movement.</p>
+                </div>
+                <img src="./images/wrcc-dash-original.jpg" alt="Description of image">
+            </div>
+
+            <div class="image-text-container">
+                <img src="./images/wrcc-wallride-original.jpg" alt="Description of image">
+                <div class="text">
+                    <p>The wall ride state is a bit more complex, as it needs to follow along the wall even if it is curved, meaning it cannot be quite as simple as the dash state. However, it does not need to be as complex as the ground state either. Additionally, the wall ride state is split into left and right wall ride states due to the ease of creating actions that are required for it. This wall ride is closer to Lucio from Overwatch than Titanfall's, mostly because I find that wall ride more fun.</p>
+                </div>
+            </div>
+
+            <div class="image-text-container">
+                <div class="text">
+                    <p>The jump state is merely a transitionary state to ensure that jumping isn't considered immediately grounded. Other than that, it uses an impulse boost to velocity in order to jump.</p>
+                </div>
+                <img src="./images/wrcc-jump-original.jpg" alt="Description of image">
+            </div>
+
+            <div class="image-text-container">
+                <img src="./images/wrcc-ledge-original.jpg" alt="Description of image">
+                <div class="text">
+                    <p>The ledge grab state is the final state. Effectively, if ledges are labeled as grabbable by having a hitbox on the edge with the correct physics layer, it will pull the player up to the correct spot. There are additionally two variants. One for short ledges and one for high ledges, with different pull up speeds.</p>
+                </div>
+            </div>
+
+            <p>While rough around the edges and arcady due to the lack of animations and general visual polish, this is mechanically very similar to Titanfall's character controller and is easily expandable and editable for a designer or programmer.</p>
         </div>
+
         <div class="bottom-bar">
             <div class="back-to-top" onclick="scrollToTop()">
                 [Back to the Top]
             </div>
         </div>
-
 
         <script>
             // Wait for DOM to be fully loaded

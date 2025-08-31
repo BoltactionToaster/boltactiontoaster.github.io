@@ -49,45 +49,45 @@
             </div>
         </div>
         <div class="articleContent">
-            <h1 class="title" id="projects">Projects</h1>
-            <div class="projects-container">
-              <a class="project-item" href="./fsm.html">
-                <img src="./images/fsm-cover-original.jpg" alt="Description of image">
-                <div class="project-title">Flexible Finite State Machine</div>
-                <div class="project-subtitle">A flexible FSM system with a system agnostic core and integrations to work with Unity.</div>
-              </a>
-              <a class="project-item" href="dbs.html">
-                <img src="./images/dbs-cover-original.jpg" alt="Description of image">
-                <div class="project-title">Data Binding System</div>
-                <div class="project-subtitle">A powerful system to bind data between different scripts in Unity with type validation.</div>
-              </a>
-              <a class="project-item" href="wrcc.html">
-                <img src="./images/wrcc-cover-original.jpg" alt="Description of image">
-                <div class="project-title">Titanfall Inspired Character Controller</div>
-                <div class="project-subtitle">A character controller inspired by the Titanfall character controller with ledge grabbing, wall riding, and directional dashing.</div>
-              </a>
-              <!--<div class="project-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1920px-Google_2015_logo.svg.png" alt="Description of image">
-                <div class="project-title">Graph Based Behavior Tree</div>
-                <div class="project-subtitle">A behavior tree made using the same graph technology Unity's Shadergraph uses.</div>
-              </div>-->
-            </div>
-            <br>
-            <!--<h1 class="title" id="classes">University Electives Taken</h1>
+            <h1 class="title">Data Binding System</h1>
+            <h2 class="subtitle">A highly flexible and powerful data binding system made to seamlessly integrate a data container with gameplay code.</h2>
+            <p>Often times different scripts or systems on an object need to share data for a variety of reasons. This means that either there needs to be a model to act as an intermediary between the data or high levels of coupling between the scripts. Since coupling makes software more brittle the larger it is, many enterprise projects prioritize using models instead of direct references. Whereas that is not necessary for smaller projects with tiny scopes.</p>
 
-            <br>-->
-            <h1 class="title" id="about">About</h1>
-            <p class="centered-text">I am a passionate software engineer and a graduate of the University of Central Florida's computer science program. I started programming in high school to learn to make games. From there, I had decided that I really enjoyed programming, though much of what I learned was game development focused until university. However, once in university, I was exposed to many different fields of software development. From web development to systems software, operating systems, and even machine learning. I learned so much about the inner workings of many underlying systems the modern world runs off of and takes for granted. I'm ready to continue learning what I need to be successful in my career and reach my goals.</p>
-            <br>
-            <h1 class="title" id="contact">Contact</h1>
-            <h2 class="subtitle">jasonreppeto@gmail.com</h2>
+            <p>This data binding system allows for an extremely flexible and dynamic model to be used for any data type. It has two sections to utilize this: A data container and BindableProperties.</p>
+
+            <p>The data container utilizes C#'s generics to allow for type validation on a Wrapper&ltT&gt object. Additionally, every piece of data has an event for when the data is changed, in case something needs to update when a value changes, such as a UI element for player health. This data can be easily held in a dictionary of &ltidentifier, data&gt. This allows for easy data queries and is essential for the next step, the bindable properties. </p>
+
+            <p>The BindableProperty&ltT&gt class is a generic class that contains the required information for the binding. In particular, it holds a reference to the class of the object it is bound to and the identifier of the bound data. Due to it taking in a generic type, everything is properly type checked for any logical calculations. From there, the data can be easily accessed by whatever holds the BindableProperty as a variable. Additionally, it works with Unity's inspector, allowing for a dropdown to bind the identifier without needing to type anything. Here is an example in Unity using my FSM's AccelerationAction:</p>
+
+            <pre class="code"><code class="language-cs">public BindableProperty&ltTransform&gt trans;
+public BindableProperty&ltVector3&gt acceleration;
+public BindableProperty&ltVector3&gt velocity;
+
+public void Execute()
+{
+    if (Impulse)
+        return;
+
+    var orientedVector = trans.Value.rotation * acceleration.Value;
+    velocity.Set(velocity.Value + orientedVector * Time.deltaTime);
+}
+</code></pre>
+            
+            <div class="image-text-container">
+                <div class="text">
+                    <p>The name.Value simply grabs the value and lets the user access it like they would any other variable. As for name.Set(T), this obviously changes the value instead of just accessing it. This means that I can easily have a single data container, in this case a Unity component, that holds whatever data I need and it can easily be binded.</p>
+                </div>
+                <img src="./images/dbs-accel-action-original.jpg" alt="Image of a Unity component">
+            </div>
+
+            <p>All combined together, this allows for an extremely flexible and dynamic system without any additional effort. The best part is, it is extremely easily serializable and won't break with updates. This means it should be able to slot into any solid serialization and saving system. </p>
         </div>
+
         <div class="bottom-bar">
             <div class="back-to-top" onclick="scrollToTop()">
                 [Back to the Top]
             </div>
         </div>
-
 
         <script>
             // Wait for DOM to be fully loaded
